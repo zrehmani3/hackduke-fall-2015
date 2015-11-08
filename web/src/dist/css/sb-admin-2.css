@@ -8,6 +8,14 @@ body {
     background-color: #f8f8f8;
 }
 
+.app-title {
+    text-align: center
+}
+
+.page-header {
+    text-align: center;
+}
+
 #wrapper {
     width: 100%;
 }
@@ -21,7 +29,7 @@ body {
 @media(min-width:768px) {
     #page-wrapper {
         position: inherit;
-        margin: 0 0 0 250px;
+        margin: 0 0 0 0px;
         padding: 0 30px;
         border-left: 1px solid #e7e7e7;
     }
