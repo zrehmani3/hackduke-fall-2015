@@ -49,23 +49,29 @@ $(document).ready(function() {
     }
 });
 
-//Flot Pie Chart
+//***************************************************************************************
+//******** SIDDU WORK WITH THIS AND ONLY THIS *******************************************
+//Flot Pie Chart 
 $(function() {
 
     var data = [{
-        label: "Series 0",
-        data: 1
+        label: "Apple",
+        data: 10
     }, {
-        label: "Series 1",
+        label: "Banana",
         data: 3
     }, {
-        label: "Series 2",
+        label: "Corn",
         data: 9
     }, {
-        label: "Series 3",
-        data: 20
+        label: "Dragonfruit",
+        data: 50
+    }, {
+        label: "Eggplant",
+        data: 12
     }];
-
+//************************************************************************************
+//************************************************************************************
     var plotObj = $.plot($("#flot-pie-chart"), data, {
         series: {
             pie: {
@@ -87,6 +93,8 @@ $(function() {
     });
 
 });
+
+
 
 //Flot Multiple Axes Line Chart
 $(function() {
