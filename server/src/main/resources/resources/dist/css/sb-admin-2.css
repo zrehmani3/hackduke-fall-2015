@@ -10,7 +10,7 @@ body {
 }
 
 #top-logo {
-    background-image: url("../../../../paper_bag_veggies.jpg");
+    background-image: url("dist/images/paper_bag_veggies.jpg");
     height: 700px;
 }
 
