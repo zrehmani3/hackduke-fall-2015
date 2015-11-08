@@ -1,15 +1,14 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
+import React from 'react'
+import { render } from 'react-dom'
+import { RouteConfig } from './routeconfig'
 
-var MyComponent = React.createClass({
-  render: function() {
-    return <span className="MyComponent">Hello, MyComponent!</span>;
+export const Main = React.createClass({
+  render() {
+    return <RouteConfig />;
   }
 });
 
-module.exports = MyComponent;
-
-ReactDOM.render(
-  <MyComponent />,
+render(
+  <Main />,
   document.getElementById('container')
 );
