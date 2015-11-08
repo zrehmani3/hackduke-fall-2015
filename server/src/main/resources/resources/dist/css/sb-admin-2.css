@@ -5,11 +5,25 @@
  */
 
 body {
-    background-color: #f8f8f8;
+    /*background-color: #f8f8f8;*/
+    background: #FFF9E8;
+}
+
+#top-logo {
+    background-image: url("../../../../paper_bag_veggies.jpg");
+    height: 700px;
 }
 
 .app-title {
-    text-align: center
+    text-align: center;
+    margin-top: 350px;
+    color: white;
+    font-size: 2em;
+    font-family: "Gloria Hallelujah";
+}
+
+#organization {
+    font-size: 1.5em;
 }
 
 .page-header {
