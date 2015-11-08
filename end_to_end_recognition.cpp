@@ -61,7 +61,7 @@ int main(int argc, char* argv[])
 
     double t_d = (double)getTickCount();
     // Create ERFilter objects with the 1st and 2nd stage default classifiers
-    Ptr<ERFilter> er_filter1 = createERFilterNM1(loadClassifierNM1("trained_classifierNM1-2.xml"),8,0.00015f,0.13f,0.2f,true,0.1f);
+    Ptr<ERFilter> er_filter1 = createERFilterNM1(loadClassifierNM1("trained_classifierNM1-2.xml"),8,0.00015f,0.13f,0.2f,false,0.1f);
     Ptr<ERFilter> er_filter2 = createERFilterNM2(loadClassifierNM2("trained_classifierNM2-2.xml"),0.5);
 
     vector<vector<ERStat> > regions(channels.size());
@@ -138,7 +138,7 @@ int main(int argc, char* argv[])
         cout << output << endl;
         
         // pink box with output superimposed on image
-        /*if (output.size() < 3)
+        if (output.size() < 3)
             continue;
 
         for (int j=0; j<(int)boxes.size(); j++)
@@ -158,7 +158,7 @@ int main(int argc, char* argv[])
             rectangle(out_img, boxes[j].tl()-Point(3,word_size.height+3), boxes[j].tl()+Point(word_size.width,0), Scalar(255,0,255),-1);
             putText(out_img, words[j], boxes[j].tl()-Point(1,1), FONT_HERSHEY_SIMPLEX, scale_font, Scalar(255,255,255),(int)(3*scale_font));
             out_img_segmentation = out_img_segmentation | group_segmentation;
-        }*/
+        }
 
     }
 
