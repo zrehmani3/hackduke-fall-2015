@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PantryPal</string>
+    <string name="app_name">PantreePal</string>
     <string name="title_activity_signup">Flash Aid Setup</string>
     <string name="title_complete_profile">Flash Aid Setup</string>
     <string name="hello_world">Hello world!</string>
