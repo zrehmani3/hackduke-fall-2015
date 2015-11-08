@@ -1,16 +1,18 @@
 package com.example.zain.foodbank;
 
+import android.app.DialogFragment;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -119,8 +121,10 @@ public class MainActivity extends BaseActivity {
         if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 // Image captured and saved to fileUri specified in the Intent
-                Toast.makeText(this, "Image saved to:\n" +
-                        data.getData(), Toast.LENGTH_LONG).show();
+                UpdateItemsFromImage updateItems = new UpdateItemsFromImage();
+                String fileName = Environment.getExternalStorageDirectory() + "/MyImages/my_item_img_opencv.jpg";
+                Log.i("FILENAME: ", fileName);
+                updateItems.execute(fileName);
             } else if (resultCode == RESULT_CANCELED) {
                 // User cancelled the image capture
             } else {
@@ -134,7 +138,7 @@ public class MainActivity extends BaseActivity {
         super.onBackPressed();
     }
 
-    private class GetItemsListTask extends AsyncTask<String, Void, String> {
+    public class GetItemsListTask extends AsyncTask<String, Void, String> {
 
         Network network = new Network();
 
@@ -181,7 +185,49 @@ public class MainActivity extends BaseActivity {
         protected void onProgressUpdate(Void... values) {}
     }
 
-    private class Item {
+    private class UpdateItemsFromImage extends AsyncTask<String, Void, String> {
+
+        Network network = new Network();
+        ProgressDialog progress = new ProgressDialog(MainActivity.this);
+
+        @Override
+        protected String doInBackground(String... params) {
+            try {
+                return network.postFile(params[0]);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return "";
+        }
+
+        public void showConfirmationDialog(DialogFragment dialog) {
+            // Create an instance of the dialog fragment and show it
+            progress.dismiss();
+            dialog.show(getFragmentManager(), "ConfirmationActivity");
+        }
+
+
+        @Override
+        protected void onPostExecute(String result) {
+            ConfirmFragment dialog = new ConfirmFragment();
+            dialog.setJson(result);
+            dialog.setItems(items);
+            dialog.setMainActivity(MainActivity.this);
+            showConfirmationDialog(dialog);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            progress.setMessage("Processing...");
+            progress.setCancelable(false);
+            progress.show();
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {}
+    }
+
+    public class Item {
         private String itemName;
         private int itemId;
 
@@ -199,7 +245,7 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    private class ModifyItemsTask extends AsyncTask<String, Void, String> {
+    public class ModifyItemsTask extends AsyncTask<String, Void, String> {
 
         Network network = new Network();
 
@@ -224,7 +270,7 @@ public class MainActivity extends BaseActivity {
         protected void onProgressUpdate(Void... values) {}
     }
 
-    private class AddItemsTask extends AsyncTask<String, Void, String> {
+    public class AddItemsTask extends AsyncTask<String, Void, String> {
 
         Network network = new Network();
 
@@ -250,4 +296,5 @@ public class MainActivity extends BaseActivity {
         @Override
         protected void onProgressUpdate(Void... values) {}
     }
+
 }
