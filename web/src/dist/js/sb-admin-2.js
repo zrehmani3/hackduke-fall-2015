@@ -34,3 +34,15 @@ $(function() {
         element.addClass('active');
     }
 });
+
+
+// parallax effect for scrolling
+function parallax(){
+    var scrolled = $(window).scrollTop();
+    $('.jumbotron').css('height', (700 - scrolled) + 'px');
+    $('.app-title').css('margin-top', (350 - .6*scrolled) + 'px');
+};
+
+$(window).scroll(function(e){
+    parallax();
+});
