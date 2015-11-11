@@ -39,6 +39,9 @@ public class HelloWorldController {
         ItemDb itemDb = new ItemDb();
         itemDb.loadById(id);
         itemDb.setQuantity(itemDb.getQuantity() + qty);
+        if (itemDb.getQuantity() < 0) {
+            itemDb.setQuantity(0);
+        }
         itemDb.updateQuantity();
         itemDb.close();
         return "redirect:/dashboard";

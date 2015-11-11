@@ -26,10 +26,24 @@ public class ItemDb extends BaseDb {
     }
 
     public void insert() {
+        ItemLogDb itemLogDb = new ItemLogDb();
+        itemLogDb.setQuantity(quantity);
+        itemLogDb.setTimestamp((int) (System.currentTimeMillis() / 1000));
+        itemLogDb.setItemId(id);
+        itemLogDb.insert();
         executeUpdate("INSERT INTO item (`food_bank_id`, `name`, `quantity`) VALUES (\"" + foodBankId + "\",\"" + name + "\",\"" + quantity + "\")");
     }
 
     public void updateQuantity() {
+        ItemLogDb itemLogDb = new ItemLogDb();
+        try {
+            itemLogDb.setQuantity(quantity - result.getInt("quantity"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        itemLogDb.setTimestamp((int) (System.currentTimeMillis() / 1000));
+        itemLogDb.setItemId(id);
+        itemLogDb.insert();
         executeUpdate("UPDATE item SET quantity=\"" + quantity + "\" WHERE `id`=\"" + id + "\"");
     }
 
